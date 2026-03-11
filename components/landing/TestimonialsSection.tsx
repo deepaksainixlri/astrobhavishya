@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Star } from 'lucide-react';
-import { Card } from '../ui/Card';
 
 const testimonials = [
   {
@@ -44,42 +43,49 @@ const testimonials = [
     name: 'Vikram Nair',
     role: 'Entrepreneur, Kochi',
     image: '👨‍🚀',
-    text: 'This is the most affordable and accurate astrology service I\'ve used. For ₹99, getting a Kundli that usually costs ₹500+ is incredible value.',
+    text: "This is the most affordable and accurate astrology service I've used. For ₹99, getting a Kundli that usually costs ₹500+ is incredible value.",
     rating: 5,
   },
 ];
 
+const trustStats = [
+  { value: '500K+', label: 'Active Users' },
+  { value: '2.5M+', label: 'Reports Generated' },
+  { value: '4.8★', label: 'Average Rating' },
+  { value: '97%', label: 'Satisfaction' },
+];
+
 export const TestimonialsSection: React.FC = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent" />
+    <section
+      className="relative py-20 lg:py-32 overflow-hidden"
+      style={{ backgroundColor: '#FFFFF7' }}
+    >
+      {/* Subtle warm gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/40 via-transparent to-amber-50/60 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
               Loved by Thousands
             </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Real stories from real people who transformed their lives with cosmic insights.
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Real stories from real people who transformed their lives with
+            cosmic insights.
           </p>
         </div>
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card
+            <div
               key={index}
-              variant="glass"
-              className="p-8 animate-in fade-in slide-in-from-bottom-4 duration-500"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
+              className="card-3d bg-white rounded-2xl shadow-depth p-8 transition-shadow duration-500 hover:shadow-depth-lg"
             >
-              {/* Rating */}
+              {/* Star Rating */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
@@ -89,41 +95,38 @@ export const TestimonialsSection: React.FC = () => {
                 ))}
               </div>
 
-              {/* Quote */}
-              <p className="text-gray-300 mb-6 leading-relaxed italic">
-                "{testimonial.text}"
+              {/* Testimonial Quote */}
+              <p className="text-gray-700 mb-6 leading-relaxed italic">
+                &ldquo;{testimonial.text}&rdquo;
               </p>
 
-              {/* Author */}
-              <div className="flex items-center gap-4 pt-4 border-t border-white/10">
+              {/* Author Info */}
+              <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
                 <div className="text-3xl">{testimonial.image}</div>
                 <div>
-                  <p className="text-white font-semibold text-sm">{testimonial.name}</p>
-                  <p className="text-gray-400 text-xs">{testimonial.role}</p>
+                  <p className="text-gray-900 font-semibold text-sm">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-gray-500 text-xs">{testimonial.role}</p>
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
 
-        {/* Trust Stats */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-amber-400 mb-2">500K+</div>
-            <p className="text-gray-400 text-sm">Active Users</p>
-          </Card>
-          <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-amber-400 mb-2">2.5M+</div>
-            <p className="text-gray-400 text-sm">Reports Generated</p>
-          </Card>
-          <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-amber-400 mb-2">4.8★</div>
-            <p className="text-gray-400 text-sm">Average Rating</p>
-          </Card>
-          <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-amber-400 mb-2">97%</div>
-            <p className="text-gray-400 text-sm">Satisfaction</p>
-          </Card>
+        {/* Trust Stats Bar */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {trustStats.map((stat, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-depth p-6 text-center"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-amber-500 mb-2">
+                {stat.value}
+              </div>
+              <p className="text-gray-500 text-sm">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

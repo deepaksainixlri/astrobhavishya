@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-950 text-gray-100">
         <div className="text-center">
           <div className="text-4xl animate-spin mb-4">&#10024;</div>
           <p className="text-amber-400">Loading...</p>
@@ -51,7 +51,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gray-950 text-gray-100">
       {/* Mobile menu button */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}

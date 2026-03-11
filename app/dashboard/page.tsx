@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 import { store } from '@/lib/store';
+import { GeocodingService } from '@/lib/astrology/geocoding';
 import {
   Star, Plus, FileText, Heart, Sun, TrendingUp,
-  Clock, ChevronRight, Sparkles, MapPin
+  Clock, ChevronRight, Sparkles, MapPin, AlertCircle
 } from 'lucide-react';
+
+const geocoder = new GeocodingService();
 
 export default function DashboardPage() {
   const { user, profile } = useAuth();
@@ -23,6 +26,7 @@ export default function DashboardPage() {
   });
   const [chartResult, setChartResult] = useState<any>(null);
   const [reportResult, setReportResult] = useState<any>(null);
+  const [geocodeError, setGeocodeError] = useState('');
 
   useEffect(() => {
     setReports(store.getReports());
@@ -33,17 +37,21 @@ export default function DashboardPage() {
     setGenerating(true);
     setChartResult(null);
     setReportResult(null);
+    setGeocodeError('');
 
     try {
-      // Step 1: Generate chart
+      // Step 1: Geocode the place of birth
+      const location = await geocoder.geocode(birthData.placeOfBirth);
+
+      // Step 2: Generate chart with real coordinates
       const chartRes = await fetch('/api/generate-chart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...birthData,
-          latitude: 28.6139, // Default - in production, use geocoding
-          longitude: 77.209,
-          timezone: 5.5,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          timezone: location.timezone,
         }),
       });
 

@@ -9,7 +9,7 @@ export default function PricingPage() {
   const subscriptionPricing = PRICING_TIERS.filter(t => t.type !== 'one-time');
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-12 bg-gray-950 text-gray-100">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
