@@ -1,0 +1,41 @@
+import { type NextRequest, NextResponse } from 'next/server';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Routes that don't require authentication
+  const publicRoutes = ['/', '/auth/login', '/auth/register', '/pricing', '/horoscope'];
+  const isPublicRoute = publicRoutes.some(route => pathname === route || pathname.startsWith(route));
+
+  if (isPublicRoute) {
+    return NextResponse.next();
+  }
+
+  // Protected routes - require authentication
+  const protectedRoutes = ['/dashboard', '/report', '/compatibility'];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  if (isProtectedRoute) {
+    try {
+      const supabase = await createServerSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        return NextResponse.redirect(new URL('/auth/login', request.url));
+      }
+
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.redirect(new URL('/auth/login', request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|public).*)',
+  ],
+};
