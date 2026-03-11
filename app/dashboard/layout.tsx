@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -21,16 +21,32 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, loading, signOut } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
     router.push('/');
   };
 
-  // Redirect if not logged in
-  if (!user && typeof window !== 'undefined') {
-    router.push('/auth/login');
+  // Redirect if not logged in (after loading completes)
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/auth/login');
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl animate-spin mb-4">&#10024;</div>
+          <p className="text-amber-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
     return null;
   }
 

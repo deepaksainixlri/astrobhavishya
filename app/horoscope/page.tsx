@@ -45,7 +45,7 @@ interface Horoscope {
 export default function HoroscopePage() {
   const [selectedSign, setSelectedSign] = useState('Aries');
   const [horoscope, setHoroscope] = useState<Horoscope | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
