@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const ZODIAC_SIGNS = [
   'Aries',
@@ -72,30 +72,30 @@ export default function HoroscopePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-ivory via-white to-warm-cream p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a1a] via-[#1a0a2e] to-[#16213e] p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-saffron mb-3">Daily Horoscope</h1>
-          <p className="text-body-brown">Cosmic guidance for your day</p>
+          <h1 className="text-4xl font-bold text-[#d4a574] mb-3">Daily Horoscope</h1>
+          <p className="text-[#d4a574]/60">Cosmic guidance for your day</p>
         </div>
 
         {/* Date Selector */}
-        <div className="bg-gradient-to-br from-warm-cream to-light-peach rounded-2xl p-6 border border-saffron/20 mb-8 shadow-warm">
-          <label className="block text-saffron font-semibold mb-3">
+        <div className="bg-gradient-to-br from-[#1e1b4b] to-[#2d1b69] rounded-2xl p-6 border border-[#d4a574]/20 mb-8">
+          <label className="block text-[#d4a574] font-semibold mb-3">
             Select Date
           </label>
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full px-4 py-3 bg-white text-dark-brown rounded-lg border-2 border-saffron/30 focus:border-saffron focus:outline-none"
+            className="w-full px-4 py-3 bg-[#0a0a1a] text-white rounded-lg border-2 border-[#d4a574]/30 focus:border-[#d4a574] focus:outline-none"
           />
         </div>
 
         {/* Zodiac Signs Grid */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-dark-brown mb-6">Select Your Sign</h2>
+          <h2 className="text-2xl font-bold text-[#d4a574] mb-6">Select Your Sign</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {ZODIAC_SIGNS.map((sign) => (
               <button
@@ -103,8 +103,8 @@ export default function HoroscopePage() {
                 onClick={() => setSelectedSign(sign)}
                 className={`p-4 rounded-lg border-2 transition-all text-center cursor-pointer ${
                   selectedSign === sign
-                    ? 'bg-saffron border-saffron text-dark-brown font-bold shadow-warm'
-                    : 'bg-white border-saffron/30 text-saffron hover:border-saffron shadow-warm'
+                    ? 'bg-[#d4a574] border-[#d4a574] text-[#0a0a1a] font-bold'
+                    : 'bg-[#1e1b4b] border-[#d4a574]/30 text-[#d4a574] hover:border-[#d4a574]'
                 }`}
               >
                 <div className="text-2xl mb-2">{getZodiacEmoji(sign)}</div>
@@ -118,28 +118,28 @@ export default function HoroscopePage() {
         {loading ? (
           <div className="text-center py-12">
             <div className="text-4xl animate-spin mb-4">✨</div>
-            <p className="text-saffron">Loading horoscope...</p>
+            <p className="text-[#d4a574]">Loading horoscope...</p>
           </div>
         ) : horoscope ? (
           <div className="space-y-6">
             {/* Header Card */}
-            <div className="bg-gradient-to-r from-warm-cream to-light-peach rounded-2xl p-8 border border-saffron/20 shadow-warm">
+            <div className="bg-gradient-to-r from-[#1e1b4b] to-[#2d1b69] rounded-2xl p-8 border border-[#d4a574]/20">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-3xl font-bold text-saffron mb-1">
+                  <h2 className="text-3xl font-bold text-[#d4a574] mb-1">
                     {selectedSign}
                   </h2>
-                  <p className="text-body-brown">{ZODIAC_DATES[selectedSign]}</p>
+                  <p className="text-[#d4a574]/60">{ZODIAC_DATES[selectedSign]}</p>
                 </div>
                 <div className="text-6xl">{getZodiacEmoji(selectedSign)}</div>
               </div>
               <div className="flex items-center gap-2 mt-4">
-                <span className="text-saffron font-bold">Today's Rating:</span>
+                <span className="text-[#d4a574] font-bold">Today's Rating:</span>
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <span
                       key={i}
-                      className={i < horoscope.rating ? 'text-saffron text-xl' : 'text-saffron/30 text-xl'}
+                      className={i < horoscope.rating ? 'text-[#d4a574] text-xl' : 'text-[#d4a574]/30 text-xl'}
                     >
                       ★
                     </span>
@@ -173,25 +173,25 @@ export default function HoroscopePage() {
             </div>
 
             {/* Lucky Elements */}
-            <div className="bg-gradient-to-br from-warm-cream to-light-peach rounded-2xl p-8 border border-saffron/20 shadow-warm">
-              <h3 className="text-2xl font-bold text-saffron mb-6">Lucky Elements</h3>
+            <div className="bg-gradient-to-br from-[#1e1b4b] to-[#2d1b69] rounded-2xl p-8 border border-[#d4a574]/20">
+              <h3 className="text-2xl font-bold text-[#d4a574] mb-6">Lucky Elements</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg p-6 border border-saffron/20">
-                  <p className="text-body-brown text-sm mb-2">Lucky Number</p>
-                  <p className="text-4xl font-bold text-saffron">
+                <div className="bg-[#0a0a1a] rounded-lg p-6 border border-[#d4a574]/20">
+                  <p className="text-[#d4a574]/60 text-sm mb-2">Lucky Number</p>
+                  <p className="text-4xl font-bold text-[#d4a574]">
                     {horoscope.luckyNumber}
                   </p>
                 </div>
-                <div className="bg-white rounded-lg p-6 border border-saffron/20">
-                  <p className="text-body-brown text-sm mb-2">Lucky Color</p>
+                <div className="bg-[#0a0a1a] rounded-lg p-6 border border-[#d4a574]/20">
+                  <p className="text-[#d4a574]/60 text-sm mb-2">Lucky Color</p>
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-12 h-12 rounded-lg border-2 border-saffron"
+                      className="w-12 h-12 rounded-lg border-2 border-[#d4a574]"
                       style={{
                         backgroundColor: getColorHex(horoscope.luckyColor),
                       }}
                     />
-                    <p className="text-2xl font-bold text-saffron">
+                    <p className="text-2xl font-bold text-[#d4a574]">
                       {horoscope.luckyColor}
                     </p>
                   </div>
@@ -201,14 +201,14 @@ export default function HoroscopePage() {
 
             {/* Share Button */}
             <div className="text-center">
-              <button className="px-6 py-3 bg-saffron text-dark-brown font-bold rounded-lg hover:shadow-lg hover:shadow-saffron/50 transition-all">
+              <button className="px-6 py-3 bg-[#d4a574] text-[#0a0a1a] font-bold rounded-lg hover:shadow-lg hover:shadow-[#d4a574]/50 transition-all">
                 🔗 Share Horoscope
               </button>
             </div>
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-body-brown/60">Unable to load horoscope. Please try again.</p>
+            <p className="text-[#d4a574]/60">Unable to load horoscope. Please try again.</p>
           </div>
         )}
       </div>
@@ -224,12 +224,12 @@ interface HoroscopeSectionProps {
 
 function HoroscopeSection({ title, icon, content }: HoroscopeSectionProps) {
   return (
-    <div className="bg-gradient-to-br from-warm-cream to-light-peach rounded-2xl p-6 border border-saffron/20 shadow-warm">
-      <h3 className="text-lg font-bold text-saffron mb-4 flex items-center gap-2">
+    <div className="bg-gradient-to-br from-[#1e1b4b] to-[#2d1b69] rounded-2xl p-6 border border-[#d4a574]/20">
+      <h3 className="text-lg font-bold text-[#d4a574] mb-4 flex items-center gap-2">
         <span className="text-2xl">{icon}</span>
         {title}
       </h3>
-      <p className="text-body-brown leading-relaxed">{content}</p>
+      <p className="text-[#d4a574]/80 leading-relaxed">{content}</p>
     </div>
   );
 }
@@ -263,5 +263,5 @@ function getColorHex(colorName: string): string {
     Pink: '#ff6699',
     Gold: '#ffd700',
   };
-  return colors[colorName] || '#D4920B';
+  return colors[colorName] || '#d4a574';
 }

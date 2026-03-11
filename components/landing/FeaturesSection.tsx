@@ -45,19 +45,19 @@ const features = [
 
 export const FeaturesSection: React.FC = () => {
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-white via-warm-cream to-white">
+    <section className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-saffron/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-saffron to-terracotta-light bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
               Powerful Features
             </span>
           </h2>
-          <p className="text-body-brown text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Everything you need to navigate your cosmic destiny with precision and insight.
           </p>
         </div>
@@ -76,14 +76,14 @@ export const FeaturesSection: React.FC = () => {
                 }}
               >
                 <div className="flex items-start gap-4 mb-6">
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${feature.color} shadow-warm`}>
+                  <div className={`p-3 rounded-lg bg-gradient-to-br ${feature.color} shadow-lg`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-dark-brown mb-3">
+                <h3 className="text-xl font-bold text-white mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-body-brown leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   {feature.description}
                 </p>
               </Card>
@@ -94,37 +94,37 @@ export const FeaturesSection: React.FC = () => {
         {/* Additional Info */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 lg:mt-20">
           <Card variant="glass" className="p-8">
-            <h3 className="text-2xl font-bold text-dark-brown mb-4">
+            <h3 className="text-2xl font-bold text-white mb-4">
               Vedic Astrology Meets AI
             </h3>
-            <p className="text-body-brown mb-4">
+            <p className="text-gray-400 mb-4">
               Our algorithms combine thousands of years of Vedic knowledge with cutting-edge machine learning to provide insights that were once only available from master astrologers.
             </p>
-            <ul className="space-y-2 text-body-brown text-sm">
+            <ul className="space-y-2 text-gray-300 text-sm">
               <li>✓ Traditional Vedic principles</li>
               <li>✓ Modern AI analysis</li>
               <li>✓ Scientifically validated</li>
             </ul>
           </Card>
           <Card variant="glass" className="p-8">
-            <h3 className="text-2xl font-bold text-dark-brown mb-4">
+            <h3 className="text-2xl font-bold text-white mb-4">
               Trusted by Thousands
             </h3>
-            <p className="text-body-brown mb-4">
+            <p className="text-gray-400 mb-4">
               Join over 500,000 users who have transformed their lives with AstroBhavishya insights.
             </p>
             <div className="space-y-3">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-body-brown">5-Star Reviews</span>
-                <span className="text-saffron font-bold">4.8/5</span>
+                <span className="text-gray-400">5-Star Reviews</span>
+                <span className="text-amber-400 font-bold">4.8/5</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-body-brown">Reports Generated</span>
-                <span className="text-saffron font-bold">2.5M+</span>
+                <span className="text-gray-400">Reports Generated</span>
+                <span className="text-amber-400 font-bold">2.5M+</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-body-brown">User Satisfaction</span>
-                <span className="text-saffron font-bold">97%</span>
+                <span className="text-gray-400">User Satisfaction</span>
+                <span className="text-amber-400 font-bold">97%</span>
               </div>
             </div>
           </Card>

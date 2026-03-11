@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { ChartData, PlanetPosition } from '@/lib/types';
 
 interface BirthChartProps {
-  chartData: ChartData;
+  chartData: any;
 }
 
 const PLANET_ABBREV: Record<string, string> = {
@@ -49,14 +48,25 @@ const SIGNS = [
 export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
   const planetsInHouses: Record<number, string[]> = {};
 
-  // Organize planets by house
-  Object.entries(chartData.planets).forEach(([name, planet]) => {
-    const house = planet.house;
-    if (!planetsInHouses[house]) {
-      planetsInHouses[house] = [];
-    }
-    planetsInHouses[house].push(name);
-  });
+  // Organize planets by house - supports both array and record formats
+  const planetsObj = chartData.planets || {};
+  if (Array.isArray(planetsObj)) {
+    planetsObj.forEach((planet: any) => {
+      const house = planet.house;
+      if (!planetsInHouses[house]) {
+        planetsInHouses[house] = [];
+      }
+      planetsInHouses[house].push(planet.planet || planet.name || 'Unknown');
+    });
+  } else {
+    Object.entries(planetsObj).forEach(([name, planet]: [string, any]) => {
+      const house = planet.house;
+      if (!planetsInHouses[house]) {
+        planetsInHouses[house] = [];
+      }
+      planetsInHouses[house].push(name);
+    });
+  }
 
   const renderNorthIndianChart = () => {
     const cellWidth = 120;
@@ -138,7 +148,10 @@ export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
           const centerX = padding + x * cellWidth + cellWidth / 2;
           const centerY = padding + y * cellHeight + cellHeight / 2;
           const planetsList = planetsInHouses[house] || [];
-          const sign = house === 0 ? chartData.ascendant : SIGNS[(house - 1) % 12];
+          const ascendantName = typeof chartData.ascendant === 'string'
+            ? chartData.ascendant
+            : chartData.ascendant?.rashi || 'Aries';
+          const sign = house === 0 ? ascendantName : SIGNS[(house - 1) % 12];
 
           return (
             <g key={`house-${house}`}>
@@ -170,7 +183,9 @@ export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
 
               {/* Planets in house */}
               {planetsList.map((planetName, idx) => {
-                const planet = chartData.planets[planetName];
+                const planet = Array.isArray(planetsObj)
+                  ? planetsObj.find((p: any) => (p.planet || p.name) === planetName)
+                  : planetsObj[planetName];
                 const abbrev = PLANET_ABBREV[planetName] || planetName.substring(0, 2);
                 const offset = idx * 20;
 
@@ -195,7 +210,7 @@ export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
                     >
                       {abbrev}
                     </text>
-                    {planet.isRetrograde && (
+                    {planet?.isRetrograde && (
                       <text
                         x={centerX - 20 + offset + 10}
                         y={centerY + 8}
@@ -222,7 +237,7 @@ export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
           textAnchor="middle"
           fontWeight="bold"
         >
-          Ascendant: {chartData.ascendant}
+          Ascendant: {typeof chartData.ascendant === 'string' ? chartData.ascendant : chartData.ascendant?.rashi || ''}
         </text>
       </svg>
     );
@@ -258,19 +273,19 @@ export const BirthChart: React.FC<BirthChartProps> = ({ chartData }) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-[#d4a574]/20">
         <div>
           <p className="text-[#d4a574]/60 text-xs">Sun Sign</p>
-          <p className="text-white font-bold">{chartData.sunSign}</p>
+          <p className="text-white font-bold">{chartData.sunSign || (Array.isArray(chartData.planets) ? chartData.planets.find((p: any) => p.planet === 'Sun')?.rashi : '') || ''}</p>
         </div>
         <div>
           <p className="text-[#d4a574]/60 text-xs">Moon Sign</p>
-          <p className="text-white font-bold">{chartData.moonSign}</p>
+          <p className="text-white font-bold">{chartData.moonSign || (Array.isArray(chartData.planets) ? chartData.planets.find((p: any) => p.planet === 'Moon')?.rashi : '') || ''}</p>
         </div>
         <div>
           <p className="text-[#d4a574]/60 text-xs">Ascendant</p>
-          <p className="text-white font-bold">{chartData.ascendant}</p>
+          <p className="text-white font-bold">{typeof chartData.ascendant === 'string' ? chartData.ascendant : chartData.ascendant?.rashi || ''}</p>
         </div>
         <div>
           <p className="text-[#d4a574]/60 text-xs">Nakshatra</p>
-          <p className="text-white font-bold">{chartData.nakshatra}</p>
+          <p className="text-white font-bold">{chartData.nakshatra || chartData.ascendant?.nakshatra || (Array.isArray(chartData.planets) ? chartData.planets.find((p: any) => p.planet === 'Moon')?.nakshatra : '') || ''}</p>
         </div>
       </div>
     </div>

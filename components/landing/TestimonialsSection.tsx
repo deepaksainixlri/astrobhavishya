@@ -51,19 +51,19 @@ const testimonials = [
 
 export const TestimonialsSection: React.FC = () => {
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-white to-warm-cream">
+    <section className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-saffron/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-saffron to-terracotta-light bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
               Loved by Thousands
             </span>
           </h2>
-          <p className="text-body-brown text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Real stories from real people who transformed their lives with cosmic insights.
           </p>
         </div>
@@ -84,22 +84,22 @@ export const TestimonialsSection: React.FC = () => {
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 text-saffron fill-saffron"
+                    className="w-5 h-5 text-amber-400 fill-amber-400"
                   />
                 ))}
               </div>
 
               {/* Quote */}
-              <p className="text-dark-brown mb-6 leading-relaxed italic">
+              <p className="text-gray-300 mb-6 leading-relaxed italic">
                 "{testimonial.text}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4 pt-4 border-t border-saffron/15">
+              <div className="flex items-center gap-4 pt-4 border-t border-white/10">
                 <div className="text-3xl">{testimonial.image}</div>
                 <div>
-                  <p className="text-dark-brown font-semibold text-sm">{testimonial.name}</p>
-                  <p className="text-body-brown text-xs">{testimonial.role}</p>
+                  <p className="text-white font-semibold text-sm">{testimonial.name}</p>
+                  <p className="text-gray-400 text-xs">{testimonial.role}</p>
                 </div>
               </div>
             </Card>
@@ -109,20 +109,20 @@ export const TestimonialsSection: React.FC = () => {
         {/* Trust Stats */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-saffron mb-2">500K+</div>
-            <p className="text-body-brown text-sm">Active Users</p>
+            <div className="text-4xl font-bold text-amber-400 mb-2">500K+</div>
+            <p className="text-gray-400 text-sm">Active Users</p>
           </Card>
           <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-saffron mb-2">2.5M+</div>
-            <p className="text-body-brown text-sm">Reports Generated</p>
+            <div className="text-4xl font-bold text-amber-400 mb-2">2.5M+</div>
+            <p className="text-gray-400 text-sm">Reports Generated</p>
           </Card>
           <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-saffron mb-2">4.8★</div>
-            <p className="text-body-brown text-sm">Average Rating</p>
+            <div className="text-4xl font-bold text-amber-400 mb-2">4.8★</div>
+            <p className="text-gray-400 text-sm">Average Rating</p>
           </Card>
           <Card variant="dark" className="p-6 text-center">
-            <div className="text-4xl font-bold text-saffron mb-2">97%</div>
-            <p className="text-body-brown text-sm">Satisfaction</p>
+            <div className="text-4xl font-bold text-amber-400 mb-2">97%</div>
+            <p className="text-gray-400 text-sm">Satisfaction</p>
           </Card>
         </div>
       </div>

@@ -766,7 +766,7 @@ export class VedicCalculator {
 
     // Manglik/Kuja Dosha: Mars in 1, 2, 4, 7, 8, 12 house
     const manglikHouses = [1, 2, 4, 7, 8, 12];
-    const hasManglik = marsPos && manglikHouses.includes(marsPos.house);
+    const hasManglik = !!(marsPos && manglikHouses.includes(marsPos.house));
 
     const manglikDosha = {
       exists: hasManglik,

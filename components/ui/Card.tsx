@@ -18,17 +18,17 @@ export const Card: React.FC<CardProps> = ({
 
   const variants = {
     glass: `
-      backdrop-blur-md bg-white/70 border border-saffron/20
-      hover:bg-white/85 hover:border-saffron/40 hover:shadow-warm-lg hover:shadow-saffron/20
+      backdrop-blur-md bg-white/5 border border-white/10
+      hover:bg-white/8 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-amber-500/20
       group
     `,
     dark: `
-      bg-gradient-to-br from-warm-cream to-light-peach border border-saffron/20
-      hover:border-saffron/50 hover:shadow-warm-lg hover:shadow-saffron/15
+      bg-gradient-to-br from-gray-900/80 to-gray-950/80 border border-gray-800
+      hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/20
     `,
     gradient: `
-      bg-gradient-to-br from-warm-cream/60 to-light-peach/60 border border-saffron/25
-      hover:from-warm-cream/80 hover:to-light-peach/80 hover:border-saffron/50 hover:shadow-warm-lg hover:shadow-saffron/20
+      bg-gradient-to-br from-purple-900/40 to-indigo-900/40 border border-purple-500/20
+      hover:from-purple-900/60 hover:to-indigo-900/60 hover:border-amber-500/40 hover:shadow-2xl hover:shadow-purple-500/20
     `,
   };
 

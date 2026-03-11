@@ -232,6 +232,28 @@ export interface PricingTier {
   popular?: boolean;
 }
 
+export interface DashaInfo {
+  mahadashaLord: string;
+  mahadashaStart: string | Date;
+  mahadashaEnd: string | Date;
+  antardashaLord: string;
+  antardashaStart: string | Date;
+  antardashaEnd: string | Date;
+  durationPercentage: number;
+}
+
+export interface BirthDetails {
+  name: string;
+  dateOfBirth: string;
+  timeOfBirth: string;
+  placeOfBirth: string;
+  latitude: number;
+  longitude: number;
+  timezone: string;
+  gender?: 'male' | 'female' | 'other';
+  unknownBirthTime: boolean;
+}
+
 export interface Session {
   id: string;
   userId: string;

@@ -49,8 +49,8 @@ export const CompatibilityForm: React.FC<CompatibilityFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const suggestionsRef1 = useRef<HTMLDivElement>(null);
   const suggestionsRef2 = useRef<HTMLDivElement>(null);
-  const debounceTimer1 = useRef<NodeJS.Timeout>();
-  const debounceTimer2 = useRef<NodeJS.Timeout>();
+  const debounceTimer1 = useRef<NodeJS.Timeout>(undefined);
+  const debounceTimer2 = useRef<NodeJS.Timeout>(undefined);
 
   // Debounced geocoding for person 1
   useEffect(() => {
@@ -276,7 +276,7 @@ export const CompatibilityForm: React.FC<CompatibilityFormProps> = ({
     suggestions: PlaceSuggestion[];
     showSuggestions: boolean;
     isSearching: boolean;
-    suggestionsRef: React.RefObject<HTMLDivElement>;
+    suggestionsRef: React.RefObject<HTMLDivElement | null>;
   }) => {
     const errorPrefix = `person${personNum}_`;
 

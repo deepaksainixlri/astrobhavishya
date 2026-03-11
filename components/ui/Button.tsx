@@ -13,13 +13,13 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseStyles = 'font-semibold rounded-lg transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-saffron disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'font-semibold rounded-lg transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-gradient-to-r from-saffron-light to-saffron-bright text-dark-brown hover:shadow-lg hover:shadow-saffron/50 hover:scale-105 active:scale-95',
-    secondary: 'bg-terracotta text-white hover:bg-terracotta-light hover:shadow-lg hover:shadow-terracotta/50 hover:scale-105 active:scale-95',
-    outline: 'border-2 border-saffron text-saffron hover:bg-saffron/10 hover:shadow-lg hover:shadow-saffron/30',
-    ghost: 'text-saffron hover:bg-saffron/10 hover:shadow-lg hover:shadow-saffron/20',
+    primary: 'bg-gradient-to-r from-amber-400 to-amber-600 text-gray-900 hover:shadow-lg hover:shadow-amber-500/50 hover:scale-105 active:scale-95',
+    secondary: 'bg-gradient-to-r from-purple-600 to-purple-800 text-white hover:shadow-lg hover:shadow-purple-500/50 hover:scale-105 active:scale-95',
+    outline: 'border-2 border-amber-500 text-amber-400 hover:bg-amber-500/10 hover:shadow-lg hover:shadow-amber-500/30',
+    ghost: 'text-amber-400 hover:bg-amber-500/10 hover:shadow-lg hover:shadow-amber-500/20',
   };
 
   const sizes = {

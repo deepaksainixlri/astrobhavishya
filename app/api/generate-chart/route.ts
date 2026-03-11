@@ -1,59 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { VedicCalculator } from '@/lib/astrology/calculator';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { birthProfileId } = body;
+    const { name, dateOfBirth, timeOfBirth, placeOfBirth, latitude, longitude, timezone, gender } = body;
 
-    if (!birthProfileId) {
-      return NextResponse.json(
-        { error: 'Birth profile ID is required' },
-        { status: 400 }
-      );
+    if (!dateOfBirth || !placeOfBirth) {
+      return NextResponse.json({ error: 'Date and place of birth are required' }, { status: 400 });
     }
 
-    // Verify user is authenticated
-    const supabase = await createServerSupabaseClient();
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const birthDate = new Date(dateOfBirth);
+    const [hours, minutes] = (timeOfBirth || '12:00').split(':').map(Number);
+    const lat = latitude || 28.6139; // Default Delhi
+    const lng = longitude || 77.2090;
+    const tz = timezone || 5.5; // IST
 
-    if (userError || !user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
+    const calculator = new VedicCalculator();
+    const chartData = calculator.calculateChart(
+      birthDate,
+      hours || 12,
+      minutes || 0,
+      0,
+      lat,
+      lng,
+      tz,
+      placeOfBirth
+    );
 
-    // TODO: Implement birth chart calculation logic
-    // This would involve:
-    // 1. Fetch birth profile from Supabase
-    // 2. Calculate planetary positions using Swiss Ephemeris or similar
-    // 3. Calculate house positions
-    // 4. Identify nakshatras and other astrological data
-    // 5. Calculate dashas
-    // 6. Identify yogas and doshas
-    // 7. Store chart data in Supabase
+    const chartId = `chart_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
-    const chartData = {
-      id: 'chart_' + Date.now(),
-      birthProfileId,
-      ascendant: 'sagittarius' as const,
-      ascendantDegree: 15.45,
-      ascendantNakshatra: 'mula' as const,
-      planets: [],
-      houses: [],
-      dashas: [],
-      yogas: [],
-      doshas: [],
-      ayanamsa: 24.02,
-      createdAt: new Date(),
-    };
-
-    return NextResponse.json(chartData);
-  } catch (error) {
+    return NextResponse.json({
+      success: true,
+      chartId,
+      chart: {
+        ...chartData,
+        id: chartId,
+        name: name || 'User',
+        gender: gender || 'other',
+        birthDate: birthDate.toISOString(),
+        timeOfBirth: timeOfBirth || '12:00',
+        placeOfBirth,
+      },
+    });
+  } catch (error: any) {
     console.error('Chart generation error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate chart' },
+      { error: 'Failed to generate chart', details: error.message },
       { status: 500 }
     );
   }

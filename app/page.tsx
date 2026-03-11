@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/landing/HeroSection';
 import { FeaturesSection } from '@/components/landing/FeaturesSection';
@@ -16,7 +15,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-warm-ivory via-white to-warm-cream">
+    <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black">
       <Navbar />
       <HeroSection />
       <FeaturesSection />

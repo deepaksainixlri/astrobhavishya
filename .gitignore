@@ -46,3 +46,10 @@ public/workbox-*.js.map
 
 # Local Netlify folder
 .netlify
+
+# Working copy subdirectory
+/astro-app/
+
+# Deploy artifacts
+deploy_*.zip
+deploy_*.html

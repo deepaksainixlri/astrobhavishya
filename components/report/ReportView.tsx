@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Report } from '@/lib/types';
 import { ShareButton } from '@/components/shared/ShareButton';
 
 interface ReportViewProps {
-  report: Report;
+  report: any;
   isPremium?: boolean;
   onUnlock?: () => void;
 }

@@ -1125,7 +1125,7 @@ export function getPlanetSignInterpretation(
  * Get nakshatra interpretation
  */
 export function getNakshatraInterpretation(nakshatra: Nakshatra): NakshatraInterpretation | null {
-  return interpretations.nakshatras[nakshatra] || null;
+  return (interpretations.nakshatras[nakshatra] as NakshatraInterpretation) || null;
 }
 
 /**
@@ -1146,5 +1146,5 @@ export function getDoshaInterpretation(doshaName: string): DoshaInterpretation |
  * Get planet characteristics
  */
 export function getPlanetCharacteristics(planet: Planet): PlanetCharacteristics | null {
-  return interpretations.planetCharacteristics[planet] || null;
+  return (interpretations.planetCharacteristics[planet] as PlanetCharacteristics) || null;
 }

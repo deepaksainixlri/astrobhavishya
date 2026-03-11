@@ -33,7 +33,7 @@ export const BirthDetailsForm: React.FC<BirthDetailsFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSearching, setIsSearching] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
-  const debounceTimer = useRef<NodeJS.Timeout>();
+  const debounceTimer = useRef<NodeJS.Timeout>(undefined);
 
   // Debounced place search
   useEffect(() => {

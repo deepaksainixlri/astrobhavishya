@@ -1,91 +1,76 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Razorpay from 'razorpay';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-
-const getRazorpayInstance = () => {
-  const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
-  const keySecret = process.env.RAZORPAY_KEY_SECRET;
-
-  if (!keyId || !keySecret) {
-    return null;
-  }
-
-  return new Razorpay({
-    key_id: keyId,
-    key_secret: keySecret,
-  });
-};
 
 export async function POST(request: NextRequest) {
   try {
-    const razorpay = getRazorpayInstance();
-    if (!razorpay) {
-      return NextResponse.json(
-        { error: 'Payment service not configured' },
-        { status: 503 }
-      );
-    }
-
     const body = await request.json();
-    const { amount, currency, description, reportType } = body;
+    const { amount, currency = 'INR', description, reportType } = body;
 
-    if (!amount || !currency) {
-      return NextResponse.json(
-        { error: 'Amount and currency are required' },
-        { status: 400 }
-      );
+    if (!amount || amount < 1) {
+      return NextResponse.json({ error: 'Valid amount required' }, { status: 400 });
     }
 
-    // Verify user is authenticated
-    const supabase = await createServerSupabaseClient();
-    if (!supabase) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
+
+    if (isDemoMode) {
+      // In demo mode, simulate a successful order
+      const orderId = `order_demo_${Date.now()}`;
+      return NextResponse.json({
+        success: true,
+        order: {
+          id: orderId,
+          amount: amount * 100,
+          currency,
+          description,
+          reportType,
+        },
+        key: 'rzp_test_demo',
+        isDemoMode: true,
+      });
     }
 
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    // Real Razorpay integration
+    const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
-    if (userError || !user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    if (!keyId || !keySecret || keyId.includes('placeholder')) {
+      return NextResponse.json({ error: 'Payment gateway not configured' }, { status: 503 });
     }
 
-    // Create Razorpay order
-    const order = await razorpay.orders.create({
-      amount: Math.round(amount * 100), // Razorpay expects amount in paise
+    const orderData = {
+      amount: amount * 100, // Razorpay expects paise
       currency,
-      receipt: `order_${user.id}_${Date.now()}`,
-      notes: {
-        userId: user.id,
-        reportType,
-        description,
+      receipt: `receipt_${Date.now()}`,
+      notes: { reportType, description },
+    };
+
+    const response = await fetch('https://api.razorpay.com/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString('base64')}`,
       },
+      body: JSON.stringify(orderData),
     });
 
-    // TODO: Store order in Supabase for tracking
-    // await supabase.from('payments').insert({
-    //   userId: user.id,
-    //   orderId: order.id,
-    //   amount,
-    //   currency,
-    //   status: 'pending',
-    //   reportType,
-    // });
+    if (!response.ok) {
+      throw new Error('Failed to create Razorpay order');
+    }
+
+    const order = await response.json();
 
     return NextResponse.json({
-      orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      success: true,
+      order: {
+        id: order.id,
+        amount: order.amount,
+        currency: order.currency,
+      },
+      key: keyId,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Order creation error:', error);
     return NextResponse.json(
-      { error: 'Failed to create order' },
+      { error: 'Failed to create payment order', details: error.message },
       { status: 500 }
     );
   }

@@ -8,18 +8,17 @@
       "DOM.Iterable"
     ],
     "module": "ESNext",
-    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": false,
+    "strict": true,
     "noImplicitAny": false,
-    "noImplicitThis": false,
-    "strictNullChecks": false,
-    "strictFunctionTypes": false,
-    "strictBindCallApply": false,
-    "strictPropertyInitialization": false,
-    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitReturns": true,
     "alwaysStrict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -29,13 +28,14 @@
     "allowJs": true,
     "noEmit": true,
     "jsx": "preserve",
-    "incremental": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
       ]
     },
+    "incremental": true,
+    "moduleResolution": "node",
     "plugins": [
       {
         "name": "next"
