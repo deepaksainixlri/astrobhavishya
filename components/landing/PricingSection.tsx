@@ -91,7 +91,7 @@ const pricingTiers = [
 
 export const PricingSection: React.FC = () => {
   return (
-    <section id="pricing" className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-warm-cream to-white">
+    <section id="pricing" className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-warm-cream to-white">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-saffron/5 via-transparent to-transparent" />
 
@@ -116,14 +116,14 @@ export const PricingSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
-          {pricingTiers.map((tier, index) => (
+        {/* Pricing Cards - Top Row (3 cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {pricingTiers.slice(0, 3).map((tier, index) => (
             <Card
               key={index}
               variant={tier.featured ? 'gradient' : 'dark'}
               className={`p-8 flex flex-col h-full transition-all duration-300 ${
-                tier.featured ? 'lg:scale-105 lg:z-10' : ''
+                tier.featured ? 'ring-2 ring-saffron/40 shadow-lg shadow-saffron/10' : ''
               } animate-in fade-in slide-in-from-bottom-4 duration-500`}
               style={{
                 animationDelay: `${index * 100}ms`,
@@ -139,7 +139,64 @@ export const PricingSection: React.FC = () => {
               <p className="text-body-brown text-sm mb-6">{tier.description}</p>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold text-saffron">{tier.price}</span>
+                <span className="text-3xl font-bold text-saffron whitespace-nowrap">{tier.price}</span>
+                <span className="text-body-brown text-sm ml-2">{tier.period}</span>
+              </div>
+
+              <Button
+                variant={tier.featured ? 'primary' : 'outline'}
+                size="md"
+                className="w-full mb-8"
+              >
+                {tier.cta}
+              </Button>
+
+              <div className="space-y-3 flex-1">
+                {tier.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-start gap-3">
+                    {feature.included ? (
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    ) : (
+                      <X className="w-5 h-5 text-body-brown/30 flex-shrink-0 mt-0.5" />
+                    )}
+                    <span
+                      className={`text-sm ${
+                        feature.included ? 'text-dark-brown' : 'text-body-brown/50'
+                      }`}
+                    >
+                      {feature.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {/* Pricing Cards - Bottom Row (2 cards, centered) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+          {pricingTiers.slice(3).map((tier, index) => (
+            <Card
+              key={index + 3}
+              variant={tier.featured ? 'gradient' : 'dark'}
+              className={`p-8 flex flex-col h-full transition-all duration-300 ${
+                tier.featured ? 'ring-2 ring-saffron/40 shadow-lg shadow-saffron/10' : ''
+              } animate-in fade-in slide-in-from-bottom-4 duration-500`}
+              style={{
+                animationDelay: `${(index + 3) * 100}ms`,
+              }}
+            >
+              {tier.featured && (
+                <Badge variant="tier" className="mb-4 w-full justify-center">
+                  Most Popular
+                </Badge>
+              )}
+
+              <h3 className="text-2xl font-bold text-dark-brown mb-2">{tier.name}</h3>
+              <p className="text-body-brown text-sm mb-6">{tier.description}</p>
+
+              <div className="mb-6">
+                <span className="text-3xl font-bold text-saffron whitespace-nowrap">{tier.price}</span>
                 <span className="text-body-brown text-sm ml-2">{tier.period}</span>
               </div>
 

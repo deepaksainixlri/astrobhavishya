@@ -38,10 +38,10 @@ export const Footer: React.FC = () => {
                 <a
                   key={label}
                   href={href}
-                  className="p-2 rounded-lg bg-saffron/10 hover:bg-saffron/20 text-saffron transition-all duration-200 hover:shadow-lg hover:shadow-saffron/20"
+                  className="p-2.5 rounded-lg bg-saffron/15 hover:bg-saffron/25 text-saffron transition-all duration-200 hover:shadow-lg hover:shadow-saffron/20"
                   aria-label={label}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-5 h-5" />
                 </a>
               ))}
             </div>

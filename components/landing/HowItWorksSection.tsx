@@ -27,7 +27,7 @@ const steps = [
 
 export const HowItWorksSection: React.FC = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-white to-warm-cream">
+    <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-white to-warm-cream">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-saffron/5 via-transparent to-transparent" />
 

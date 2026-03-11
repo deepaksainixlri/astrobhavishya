@@ -45,7 +45,7 @@ const features = [
 
 export const FeaturesSection: React.FC = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-white via-warm-cream to-white">
+    <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-white via-warm-cream to-white">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-saffron/5 to-transparent" />
 

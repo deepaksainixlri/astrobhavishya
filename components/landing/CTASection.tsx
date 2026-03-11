@@ -20,7 +20,7 @@ export const CTASection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section className="relative py-16 lg:py-24 overflow-hidden">
       {/* Warm Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-warm-cream to-light-peach" />
       <div className="absolute inset-0">
@@ -53,8 +53,8 @@ export const CTASection: React.FC = () => {
           </div>
 
           {/* Email Signup */}
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-stretch gap-3">
               <Input
                 type="email"
                 placeholder="Enter your email"
@@ -66,8 +66,8 @@ export const CTASection: React.FC = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="lg"
-                className="sm:w-auto"
+                size="md"
+                className="sm:w-auto whitespace-nowrap px-8"
               >
                 Get Free Report
               </Button>
